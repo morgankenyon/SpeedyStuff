@@ -37,7 +37,7 @@ namespace Benchmarker
         [Params(1000, 1000000)]
         public int N;
         
-        [Benchmark]
+        [Benchmark(Baseline = true)]
         public void Array()
         {
             var array = new int[N];
@@ -64,8 +64,17 @@ namespace Benchmarker
             for(int i = 0; i < N; i++) 
             {
                 list.Add(i);
+            }            
+        }
+
+        [Benchmark]
+        public void HashSet()
+        {
+            var set = new HashSet<int>();
+            for(int i = 0; i < N; i++)
+            {
+                set.Add(i);
             }
-            
         }
     }
 
@@ -73,7 +82,7 @@ namespace Benchmarker
     {
         public static void Main(string[] args)
         {
-            var summary = BenchmarkRunner.Run<ListMemoryBenchmarker>()
+            var summary = BenchmarkRunner.Run<ListMemoryBenchmarker>();
         }
     }
 }
